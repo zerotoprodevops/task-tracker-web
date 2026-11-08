@@ -39,6 +39,7 @@ pipeline{
             steps {
             withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                 sh  """
+                    set -x
                     #1: clone the config repo
                     rm -rf task-tracker-gitops
                     git clone https://github.com/zerotoprodevops/task-tracker-gitops.git

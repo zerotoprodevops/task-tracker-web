@@ -36,6 +36,7 @@ pipeline{
             }
         }  
         stage('update gitops values file'){
+            steps {
             withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                 sh  """
                     #1: clone the config repo
@@ -52,6 +53,7 @@ pipeline{
                     git push orign main
                     """
             }
+          }
 
         }
     }

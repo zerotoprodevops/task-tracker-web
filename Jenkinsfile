@@ -46,7 +46,7 @@ pipeline{
                     cd task-tracker-gitops
 
                     # 2: Update the Image tag in the web image value
-                    yq -i '.web.image.tag = "${TAG}" | .web.image.tag style="double"'
+                    yq -i '.web.image.tag = "${TAG}" | .web.image.tag style="double"' .environment/dev-values.yaml
 
                     #3: Commit and push
                     git add .   

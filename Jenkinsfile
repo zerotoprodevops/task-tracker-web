@@ -24,5 +24,16 @@ pipeline{
                 sh 'TMPDIR=//tempdir trivy image --severity HIGH,CRITICAL --exit-code 1 $IMAGE:$TAG'
             }
           } 
+        stage('upload docker image to dockerHub'){
+            steps{
+                withDockerRegistry(credentialsId: 'dockerhub-cred', url: 'https://hub.docker.com/repositories/jyotimanab') {
+                    sh """
+                        docker push $IMAGE:$TAG
+                        docker tag $IMAGE:$TAG $IMAGE:latest
+                        docker push $IMAGE:latest
+                       """ 
+                }
+            }
+        }  
     }
 }

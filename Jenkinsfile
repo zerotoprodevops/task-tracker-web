@@ -53,7 +53,7 @@ pipeline{
                     git config user.name "Jenkins CI"
                     git add .   
                     git commit -m "Update web image tag to ${TAG}"
-                    git push orign main
+                    git push origin main
                     """
             }
           }

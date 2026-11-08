@@ -1,6 +1,6 @@
 pipeline{
     agent {
-        label : 'build-vm'
+        labels : 'build-vm'
     }
     environment{
         IMAGE: "jyotimanab/task-tracker-web"

@@ -49,6 +49,8 @@ pipeline{
                     yq -i '.web.image.tag = "${TAG}" | .web.image.tag style="double"' ./environment/dev-values.yaml
 
                     #3: Commit and push
+                    git config  user.email "jenkins@k8cluster.local"
+                    git config user.name "Jenkins CI"
                     git add .   
                     git commit -m "Update web image tag to ${TAG}"
                     git push orign main

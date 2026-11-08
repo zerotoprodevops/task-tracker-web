@@ -3,8 +3,8 @@ pipeline{
         label  'build-vm'
     }
     environment{
-        IMAGE: "jyotimanab/task-tracker-web"
-        TAG: "env.BUILD_NUMBER"
+        IMAGE = "jyotimanab/task-tracker-web"
+        TAG = "env.BUILD_NUMBER"
     }
 
     stages{

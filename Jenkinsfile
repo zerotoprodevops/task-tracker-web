@@ -4,7 +4,7 @@ pipeline{
     }
     environment{
         IMAGE = "jyotimanab/task-tracker-web"
-        TAG = "env.BUILD_NUMBER"
+        TAG = "{env.BUILD_NUMBER}"
     }
 
     stages{

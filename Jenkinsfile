@@ -21,7 +21,7 @@ pipeline{
         }    
         stage('trivy scan'){
             steps{
-                sh 'TMPDIR=//tempdir trivy image --severity HIGH,CRITICAL --exit-code 1 $IMAGE:$TAG'
+                sh "TMPDIR=/tempdir trivy image --severity HIGH,CRITICAL --exit-code 1 $IMAGE:$TAG"
             }
           } 
         stage('upload docker image to dockerHub'){
@@ -46,7 +46,7 @@ pipeline{
                     cd task-tracker-gitops
 
                     # 2: Update the Image tag in the web image value
-                    yq -i '.web.image.tag = "${TAG}" | .web.image.tag style="double"' ./environment/dev-values.yaml
+                    yq -i '.web.image.tag = strenv(TAG) | .web.image.tag style="double"' ./environment/dev-values.yaml
 
                     #3: Commit and push
                     git config  user.email "jenkins@k8cluster.local"
@@ -62,11 +62,11 @@ pipeline{
     }
     post {
         success{
-            echo "Buils ${TAG} successful - Image pushed to Docker Hub"
+            echo "Builds ${TAG} successful - Image pushed to Docker Hub"
             sh "docker rmi $IMAGE:$TAG $IMAGE:latest || echo 'cleanup: Image not found locally'"
         }
         failure{
-            echo "Pipeline Failed: Image $Image:$TAG kept locally for debugging"
+            echo "Pipeline Failed: Image $IMAGE:$TAG kept locally for debugging"
         }
     }
 }

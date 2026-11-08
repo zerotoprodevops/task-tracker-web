@@ -35,6 +35,25 @@ pipeline{
                 }
             }
         }  
+        stage('update gitops values file'){
+            withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
+                sh  """
+                    #1: clone the config repo
+                    rm -ef task-tracker-gitops
+                    git clone https://github.com/zerotoprodevops/task-tracker-gitops.git
+                    cd task-tracker-gitops
+
+                    # 2: Update the Image tag in the web image value
+                    yq '.web.image.tag = ${TAG} | .web.image.tag style="double"'
+
+                    #3: Commit and push
+                    git add .   
+                    git commit -m "Update web image tag to ${TAG}"
+                    git push orign main
+                    """
+            }
+
+        }
     }
     post {
         success{

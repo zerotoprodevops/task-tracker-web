@@ -21,7 +21,7 @@ pipeline{
         }    
         stage('trivy scan'){
             steps{
-                sh 'TMPDIR=//tempdir trivy imge $IMAGE:$TAG'
+                sh 'TMPDIR=//tempdir trivy image $IMAGE:$TAG'
             }
           } 
     }

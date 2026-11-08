@@ -42,7 +42,7 @@ pipeline{
                     set -x
                     #1: clone the config repo
                     rm -rf task-tracker-gitops
-                    git clone https://github.com/zerotoprodevops/task-tracker-gitops.git
+                    git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/task-tracker-gitops.git
                     cd task-tracker-gitops
 
                     # 2: Update the Image tag in the web image value

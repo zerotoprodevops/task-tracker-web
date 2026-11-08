@@ -18,12 +18,11 @@ pipeline{
                 steps{
                     sh 'docker build -t $IMAGE:$TAG .'
                 }
+        }    
         stage('trivy scan'){
             steps{
                 sh 'TMPDIR=//tempdir trivy imge $IMAGE:$TAG'
             }
-          }  
-
-        }
+          } 
     }
 }

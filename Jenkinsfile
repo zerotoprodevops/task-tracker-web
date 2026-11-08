@@ -16,7 +16,7 @@ pipeline{
         }
         stage('build stage'){      
                 steps{
-                    sh "docker build -t $IMAGE:$TAG ."
+                    sh 'docker build -t "$IMAGE:$TAG" .'
                 }
         }    
         stage('trivy scan'){

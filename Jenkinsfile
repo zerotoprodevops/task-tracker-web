@@ -21,7 +21,7 @@ pipeline{
         }    
         stage('trivy scan'){
             steps{
-                sh 'TMPDIR=//tempdir trivy image $IMAGE:$TAG'
+                sh 'TMPDIR=//tempdir trivy image --severity HIGH,CRITICAL --exit-code 1 $IMAGE:$TAG'
             }
           } 
     }
